@@ -28,7 +28,7 @@ I was motivated to work on this project because of my interest in compilers and 
 
 ## License
 
-This project is licensed under The MIT License - see the [](LICENSE) file for details
+This project is licensed under The MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
