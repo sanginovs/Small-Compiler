@@ -20,54 +20,9 @@ First, let's talk about what compilers are and what it actually does. When imple
 I was motivated to work on this project because of my interest in compilers and super-lady Grace Hopper. Grace Hopper is the first lady who wrote a first compiler for Cobol programming language. Moreover, I believe that knowing the functionality of compilers makes me a better programmer. As a result, an interest to compilers got me started with this project. At the same time, I'm halfway through my online Standford compiler course and soon, I'll start implementing a more complex compiler using Java as a final project to the course I'm taking. So, keep an eye on that. 
 
 
-
-## File descriptions
-
-
-
-
-
-## Getting Started
-
-
-
-
-### Prerequisites
-
-
-
-
-### Installing
-
-
-
-
-
-
-## Running the program
-
-
-
-
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-
-
-
-
-## Built With
-
-
-
-
 ## Authors
 
-* **Sher Sanginov**
+* Sher Sanginov
 
 
 
@@ -77,6 +32,6 @@ This project is licensed under The MIT License - see the [](LICENSE) file for de
 
 ## Acknowledgments
 
-* **StackOverflow**
+* StackOverflow
 * <a href="https://github.com/thejameskyle/the-super-tiny-compiler">Super Tiny Compiler (in Javascript)</a>
 
