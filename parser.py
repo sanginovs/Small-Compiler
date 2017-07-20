@@ -39,24 +39,24 @@ def parser(token_array):
         token=token_array[current]
 
         #test if it's a string token
-        if token.type == "string":
+        if token[type] == "string":
             current+=1
             return {type: 'StringLiteral', "value" : token.value}
         #test if token is a number
-        elif token.type == "number":
+        elif token[type] == "number":
             current+=1
-            return {type:'NumberLiteral', "value":token.value}
+            return {type:'NumberLiteral', "value":token["value"]}
 
         #test for call expressions. In our functions, right after parentheses comes callExpression
         #e.g (add 2 2) --> add(2,2)
 
         # skip it since we don't need it
-        elif token.type == 'paren' and token.value=='(':
+        elif token[type] == 'paren' and token["value"]=='(':
             current+=1
             token=token_array[current]
 
             node={type: "CallExpressions",
-                "name": token.value,
+                "name": token["value"],
                 "params": []  #takes parameter: e.g (add 2 2) --> add is a CallExpression params=[2,2]
             }
 
@@ -64,8 +64,8 @@ def parser(token_array):
             token=token_array[current]
 
 
-            while token.type != 'paren' and token.value !=")":
-                node["params"].push(recusive_walk(current))
+            while token[type] != 'paren' and token["value"] !=")":
+                node["params"].append(recusive_walk(current))
                 token=token_array[current]
 
 
@@ -84,7 +84,7 @@ def parser(token_array):
 
     #push everything into abstract_syntax_tree
 
-    while current < token_array.length:
+    while current < len(token_array):
         abstract_syntax_tree["body"].append(recusive_walk(current))
 
 
@@ -93,3 +93,15 @@ def parser(token_array):
 
 
 
+token_array=[{type: 'paren', 'value': '('},
+ {type: 'name', 'value': 'add'},
+ {type: 'number', 'value': '2'},
+ {type: 'paren', 'value': '('},
+ {type: 'name', 'value': 'subtract'},
+ {type: 'number', 'value': '4'},
+ {type: 'number', 'value': '2'},
+ {type: 'paren', 'value': ')'},
+ {type: 'paren', 'value': ')'}
+ ]
+
+parser(token_array)
