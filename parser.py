@@ -64,4 +64,32 @@ def parser(token_array):
             token=token_array[current]
 
 
+            while token.type != 'paren' and token.value !=")":
+                node["params"].push(recusive_walk(current))
+                token=token_array[current]
+
+
+            current+=1 #skip the closing parentheses
+            return node
+
+        raise TypeError
+
+
+    abstract_syntax_tree={
+        type: "Program",
+        "body": []
+    }
+
+
+
+    #push everything into abstract_syntax_tree
+
+    while current < token_array.length:
+        abstract_syntax_tree["body"].append(recusive_walk(current))
+
+
+    return abstract_syntax_tree
+
+
+
 
