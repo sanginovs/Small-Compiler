@@ -29,6 +29,7 @@ Input: array of tokens e.g: (add 2 (subtract 4 2))
 '''
 
 def parser(token_array):
+    global current
     current=0
 
 
@@ -41,17 +42,17 @@ def parser(token_array):
         #test if it's a string token
         if token[type] == "string":
             current+=1
-            return {type: 'StringLiteral', "value" : token.value}
+            return {type: 'StringLiteral', "value" : token["value"]}, current
         #test if token is a number
-        elif token[type] == "number":
+        if token[type] == "number":
             current+=1
-            return {type:'NumberLiteral', "value":token["value"]}
+            return {type:'NumberLiteral', "value":token["value"]}, current
 
         #test for call expressions. In our functions, right after parentheses comes callExpression
         #e.g (add 2 2) --> add(2,2)
 
         # skip it since we don't need it
-        elif token[type] == 'paren' and token["value"]=='(':
+        if token[type] == 'paren' and token["value"]=='(':
             current+=1
             token=token_array[current]
 
@@ -64,8 +65,11 @@ def parser(token_array):
             token=token_array[current]
 
 
-            while token[type] != 'paren' and token["value"] !=")":
-                node["params"].append(recusive_walk(current))
+            while token[type] != 'paren' or token[type]=='paren' and token["value"] !=")":
+                new_node, current=recusive_walk(current)
+
+                #node["params"].append(recusive_walk(current))
+                node["params"].append(new_node)
                 token=token_array[current]
 
 
