@@ -4,6 +4,7 @@ It should traverse through each node on the AST
 
 
 '''
+import copy
 
 
 def traverser(ast, visitor):
@@ -43,7 +44,7 @@ def traverser(ast, visitor):
 
 
 
-def transformer():
+def transformer(ast):
 	'''this function takes AST as an input and passes into traverser function with a visitor 
 	and finally will create a new AST'''
 
@@ -52,3 +53,39 @@ def transformer():
 		"body": []
 
 	}
+
+	oldAst = ast
+	ast = copy.deepcopy(oldAst)
+	ast['_context'] = new_ast.get('body')
+
+	def NumberLiteralVisitor(node, parent):
+		parent['_context'].append({
+			'type': 'NumberLiteral',
+			'value': node['value']
+		})
+
+	def CallExpressionVisitor(node, parent):
+		expression = {
+			'type': 'CallExpression',
+			'callee': {
+				'type': 'Identifier',
+				'name': node['name']
+			},
+			'arguments': []
+		}
+
+		node['_context'] = expression['arguments']
+
+		if parent['type'] != 'CallExpression':
+			expression = {
+				'type': 'ExpressionStatement',
+				'expression': expression
+			}
+		parent['_context'].append(expression)
+
+	traverser(ast, {
+		'NumberLiteral': NumberLiteralVisitor,
+		'CallExpression': CallExpressionVisitor
+	})
+
+	return new_ast
